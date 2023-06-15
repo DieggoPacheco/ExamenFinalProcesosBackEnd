@@ -5,6 +5,8 @@ import com.procesos.concesionario.models.User;
 import com.procesos.concesionario.services.ProductService;
 import com.procesos.concesionario.services.UserServiceImp;
 import com.procesos.concesionario.utils.TokenValidator;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,9 @@ public class ProductController {
     private UserServiceImp userService;
 
     @PostMapping("/products")
-    public ResponseEntity createAllProducts(@RequestHeader(value="Authorization") String token) {
+    public ResponseEntity createAllProducts(
+            @Parameter(description = "Token de autenticación", required = true)
+            /*@RequestHeader(value="Authorization")*/ String token) {
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -39,8 +43,11 @@ public class ProductController {
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping(value = "/products")
-    public ResponseEntity getAll(@RequestHeader(value="Authorization") String token) {
+    public ResponseEntity getAll(
+            @Parameter(description = "Token de autenticación", required = true)
+            /*@RequestHeader(value="Authorization")*/ String token) {
         Map response = new HashMap();
         try {
             if(!tokenValidator.validateToken(token)){
@@ -63,7 +70,7 @@ public class ProductController {
         }
     }
     @PostMapping(value = "/product")
-    public ResponseEntity createProduct(@RequestBody Product product,@RequestHeader(value="Authorization") String token){
+    public ResponseEntity createProduct(@RequestBody Product product,@Parameter(description = "Token de autenticación", required = true)/*@RequestHeader(value="Authorization")*/ String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -82,7 +89,7 @@ public class ProductController {
         }
     }
     @GetMapping(value = "/products/{id}")
-    public ResponseEntity getProduc(@PathVariable(name = "id")Long id,@RequestHeader(value="Authorization") String token){
+    public ResponseEntity getProduc(@PathVariable(name = "id")Long id,@Parameter(description = "Token de autenticación", required = true)/*@RequestHeader(value="Authorization")*/ String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -98,7 +105,7 @@ public class ProductController {
         }
     }
     @PutMapping(value = "/products/{id}")
-    public ResponseEntity updateProduct(@PathVariable(name = "id") Long id, @RequestBody Product product,@RequestHeader(value="Authorization") String token){
+    public ResponseEntity updateProduct(@PathVariable(name = "id") Long id,@Parameter(description = "Token de autenticación", required = true) @RequestBody Product product,/*@RequestHeader(value="Authorization")*/ String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){

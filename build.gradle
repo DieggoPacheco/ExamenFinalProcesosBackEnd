@@ -27,6 +27,9 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.32'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'org.springframework.boot:spring-boot-starter-security:3.0.4'
+	// http://localhost:8080/swagger-ui.html
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+
 }
 
 tasks.named('test') {
