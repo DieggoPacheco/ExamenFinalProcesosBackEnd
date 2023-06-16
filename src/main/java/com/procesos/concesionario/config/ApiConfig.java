@@ -12,3 +12,4 @@ public class ApiConfig {
         return new BCryptPasswordEncoder();
     }
 }
+

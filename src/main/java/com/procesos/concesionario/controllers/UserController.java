@@ -4,6 +4,8 @@ import com.procesos.concesionario.models.User;
 import com.procesos.concesionario.services.UserServiceImp;
 import com.procesos.concesionario.utils.ApiResponse;
 import com.procesos.concesionario.utils.Constants;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,15 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
+
+@Tag(name = "User API")
 public class UserController {
     @Autowired
     private UserServiceImp userService;
     private ApiResponse apiResponse;
 
     @GetMapping(value = "/{id}")
+    @Operation(summary = "obtener usuario por ID",description  = "sirve para obtener un solo usuario por id , que este en la base de datos local")
     public ResponseEntity getById (@PathVariable(name = "id") Long id) {
 
         try{
@@ -31,6 +36,7 @@ public class UserController {
         }
     }
     @PostMapping(value = "")
+    @Operation(summary = "Crear un nuevo usuario",description  = "sirve para crear un usuario nuevo y almacenarlo en la DB local")
     public ResponseEntity createUser(@RequestBody User user){
         try{
             apiResponse = new ApiResponse(Constants.REGISTER_CREATED,userService.createUser(user));
@@ -42,6 +48,7 @@ public class UserController {
     }
 
     @GetMapping(value = "")
+    @Operation(summary = "obtener todos los usuarios",description  = "sirve para obtener todos los usuarios registrados en la DB local")
     public ResponseEntity getAllUser (){
         try{
             List<User> userList = userService.allUser();
@@ -57,6 +64,7 @@ public class UserController {
         }
     }
     @PutMapping  (value = "/{id}")
+    @Operation(summary = "modificar usuario por ID",description  = "sirve para modificar un usuario antes registrado atraves de su ID")
     public ResponseEntity editUser (@PathVariable(name = "id") Long id,@RequestBody User user){
         Map response= new HashMap();
         try{

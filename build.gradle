@@ -30,6 +30,8 @@ dependencies {
 	// http://localhost:8080/swagger-ui.html
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
 
+
+
 }
 
 tasks.named('test') {
