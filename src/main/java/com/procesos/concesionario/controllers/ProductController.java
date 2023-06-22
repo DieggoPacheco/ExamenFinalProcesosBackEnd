@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @Tag(name = "Product API")
+@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://127.0.0.1:5500/dashboard.html"})
 public class ProductController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class ProductController {
     @Operation(summary = "consumir api externa",description  = "Aqui podemos consumir los datos que se tienen en una pagina web y los podemos almacenar en la DB local")
     public ResponseEntity createAllProducts(
             @Parameter(description = "Token de autenticación", required = true)
-            /*@RequestHeader(value="Authorization")*/ String token) {
+            @RequestHeader(value="Authorization") String token) {
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -76,7 +77,7 @@ public class ProductController {
     }
     @PostMapping(value = "/product")
     @Operation(summary = "Crear nuevos productos",description  = "aqui podemos crear nuevos productos y guardarlos en la base de datos local")
-    public ResponseEntity createProduct(@RequestBody Product product,@Parameter(description = "Token de autenticación", required = true)/*@RequestHeader(value="Authorization")*/ String token){
+    public ResponseEntity createProduct(@RequestBody Product product,@Parameter(description = "Token de autenticación", required = true)@RequestHeader(value="Authorization") String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -96,7 +97,7 @@ public class ProductController {
     }
     @GetMapping(value = "/products/{id}")
     @Operation(summary = "obtener producto por id",description  = "aqui podemos obtener un producto atravez de ID solicitado en la base de datos local")
-    public ResponseEntity getProduc(@PathVariable(name = "id")Long id,@Parameter(description = "Token de autenticación", required = true)/*@RequestHeader(value="Authorization")*/ String token){
+    public ResponseEntity getProduc(@PathVariable(name = "id")Long id,@Parameter(description = "Token de autenticación", required = true) @RequestHeader(value="Authorization")String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
@@ -113,7 +114,7 @@ public class ProductController {
     }
     @PutMapping(value = "/products/{id}")
     @Operation(summary = "modificar un producto en especifico",description  = "sirve para modificar algun producto ya creado en la base de datos")
-    public ResponseEntity updateProduct(@PathVariable(name = "id") Long id,@Parameter(description = "Token de autenticación", required = true) @RequestBody Product product,/*@RequestHeader(value="Authorization")*/ String token){
+    public ResponseEntity updateProduct(@PathVariable(name = "id") Long id,@Parameter(description = "Token de autenticación", required = true) @RequestBody Product product, @RequestHeader(value="Authorization") String token){
         Map response = new HashMap();
         try{
             if(!tokenValidator.validateToken(token)){
